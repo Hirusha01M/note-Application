@@ -1,0 +1,114 @@
+<html>
+<head>
+    <title>Notepad</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #2e5577 0%, #4392ca 100%);
+        }
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            background-color: #7cc7c3;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #9b9292;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0069da;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #014288;
+        }
+        .notes {
+            margin-top: 20px;
+        }
+        .note {
+            padding: 15px;
+            background-color: #f7ecea;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .note p {
+            margin: 0;
+        }
+        .delete-btn, .edit-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            float: right;
+            margin-left: 5px;
+        }
+        .edit-btn {
+            background-color: #8707ff;
+          
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <textarea id="noteInput" placeholder=" Hey Enter your note"></textarea>
+    <button onclick="addNote()">Add Note</button>
+
+    <div class="notes" id="notesContainer"></div>
+</div>
+
+<script>
+    function addNote() {
+        var noteInput = document.getElementById("noteInput");
+        var noteText = noteInput.value.trim();
+        
+        if (noteText !== "") {
+            var noteContainer = document.getElementById("notesContainer");
+            var noteElement = document.createElement("div");
+            noteElement.classList.add("note");
+            noteElement.innerHTML = "<p>" + noteText + "</p><button class='edit-btn' onclick='editNote(this)'>Edit</button><button class='delete-btn' onclick='deleteNote(this)'>Delete</button>";
+            noteContainer.appendChild(noteElement);
+            
+            noteInput.value = "";
+        } else {
+            alert("Please enter a note!....");
+        }
+    }
+
+    function deleteNote(note) {
+        var noteElement = note.parentElement;
+        noteElement.remove();
+    }
+
+    function editNote(btn) {
+        var noteElement = btn.parentElement;
+        var noteText = noteElement.querySelector("p").innerText;
+        
+        var noteInput = document.getElementById("noteInput");
+        noteInput.value = noteText;
+
+        noteElement.remove();
+    }
+</script>
+
+</body>
+</html>
